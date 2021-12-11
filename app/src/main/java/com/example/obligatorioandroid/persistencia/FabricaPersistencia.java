@@ -11,4 +11,8 @@ public class FabricaPersistencia {
     public static IPersistenciaTarea getPersistenciaTarea(Context contexto){
         return PersistenciaTarea.getInstancia(contexto);
     }
+
+    public static IPersistenciaEvento getInstanciaEvento(Context contexto){
+        return PersistenciaEvento.getInstancia(contexto);
+    }
 }

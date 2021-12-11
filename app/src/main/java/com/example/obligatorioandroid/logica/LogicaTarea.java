@@ -37,9 +37,9 @@ class LogicaTarea {
             throw new ExcepcionLogica("La descripción no puede tener más de 100 catacteres.");
         }
 
-        if (tarea.getFechaLimite().before()) {
+        /*if (tarea.getFechaLimite().before()) {
             throw new ExcepcionLogica("La fecha límite no puede ........");
-        }
+        }*/
 
     }
 }

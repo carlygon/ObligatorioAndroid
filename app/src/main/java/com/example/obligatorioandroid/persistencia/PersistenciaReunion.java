@@ -107,11 +107,11 @@ class PersistenciaReunion implements IPersistenciaReunion{
 
             ContentValues valores = new ContentValues();
             valores.put(BD.Reuniones._ID, reunion.getIdReunion());
-            valores.put(BD.Reuniones._LUGAR, reunion.getLugar());
-            valores.put(BD.Reuniones._NOTIFICADO, reunion.getNotificado());
-            valores.put(BD.Reuniones._DESCRIPCION, reunion.getDescripcion());
-            valores.put(BD.Reuniones._OBJETIVO, reunion.getObjetivo());
-            valores.put(BD.Reuniones._FECHA_Y_HORA, reunion.getFechaYHoraReunion());
+            valores.put(BD.Reuniones.LUGAR, reunion.getLugar());
+            valores.put(BD.Reuniones.NOTIFICADO, reunion.isNotificado());
+            valores.put(BD.Reuniones.DESCRIPCION, reunion.getDescripcion());
+            valores.put(BD.Reuniones.OBJETIVO, reunion.getObjetivo());
+            valores.put(BD.Reuniones.FECHA_Y_HORA, reunion.getFechaYHoraReunion());
 
             bd.insertOrThrow(BD.REUNIONES, null, valores);
 
@@ -136,13 +136,13 @@ class PersistenciaReunion implements IPersistenciaReunion{
 
             ContentValues valores = new ContentValues();
             valores.put(BD.Reuniones._ID, reunion.getIdReunion());
-            valores.put(BD.Reuniones._LUGAR, reunion.getLugar());
-            valores.put(BD.Reuniones._NOTIFICADO, reunion.getNotificado());
-            valores.put(BD.Reuniones._DESCRIPCION, reunion.getDescripcion());
-            valores.put(BD.Reuniones._OBJETIVO, reunion.getObjetivo());
-            valores.put(BD.Reuniones._FECHA_Y_HORA, reunion.getFechaYHoraReunion());
+            valores.put(BD.Reuniones.LUGAR, reunion.getLugar());
+            valores.put(BD.Reuniones.NOTIFICADO, reunion.isNotificado());
+            valores.put(BD.Reuniones.DESCRIPCION, reunion.getDescripcion());
+            valores.put(BD.Reuniones.OBJETIVO, reunion.getObjetivo());
+            valores.put(BD.Reuniones.FECHA_Y_HORA, reunion.getFechaYHoraReunion());
 
-            int filasAfectadas = bd.update(BD.REUNIONES, valores, BD.REUNIONES.ID + " = ?",
+            int filasAfectadas = bd.update(BD.REUNIONES, valores, BD.Reuniones.ID_REUNION + " = ?",
                     new String[] { String.valueOf(reunion.getIdReunion())});
 
             if(filasAfectadas < 1){
@@ -168,7 +168,7 @@ class PersistenciaReunion implements IPersistenciaReunion{
             bdHelper = new BDHelper(contexto);
             bd = bdHelper.getWritableDatabase();
 
-            int filasAfectadas = bd.update(BD.REUNIONES, BD.REUNIONES.ID + " = ?",
+            int filasAfectadas = bd.update(BD.REUNIONES, BD.REUNIONES.ID_REUNION + " = ?",
                     new String[] { String.valueOf(idR)});
 
             if(filasAfectadas < 1){
@@ -187,14 +187,14 @@ class PersistenciaReunion implements IPersistenciaReunion{
 
     public DTReunion instanciaReunion(Cursor datos){
         int columnaIdR = datos.getColumnIndex(BD.Reuniones._ID);
-        int columnaLugar = datos.getColumnIndex(BD.Reuniones._LUGAR);
-        int columnaNotificado = datos.getColumnIndex(BD.Reuniones._NOTIFICADO);
-        int columnaDescripcion = datos.getColumnIndex(BD.Reuniones._DESCRIPCION);
-        int columnaObjetivo = datos.getColumnIndex(BD.Reuniones._OBJETIVO);
-        int columnaFechaYHora = datos.getColumnIndex(BD.Reuniones._FECHA_Y_HORA);
+        int columnaLugar = datos.getColumnIndex(BD.Reuniones.LUGAR);
+        int columnaNotificado = datos.getColumnIndex(BD.Reuniones.NOTIFICADO);
+        int columnaDescripcion = datos.getColumnIndex(BD.Reuniones.DESCRIPCION);
+        int columnaObjetivo = datos.getColumnIndex(BD.Reuniones.OBJETIVO);
+        int columnaFechaYHora = datos.getColumnIndex(BD.Reuniones.FECHA_Y_HORA);
 
         DTReunion reunion = new DTReunion(datos.getInt(columnaIdR), datos.getString(columnaLugar),
-                datos.getInt(columnaNotificado), datos.getString(columnaDescripcion), datos.getString(columnaObjetivo),
+                datos.getBoolean(columnaNotificado), datos.getString(columnaDescripcion), datos.getString(columnaObjetivo),
                 datos.getData(columnaFechaYHora));
 
         return reunion;
