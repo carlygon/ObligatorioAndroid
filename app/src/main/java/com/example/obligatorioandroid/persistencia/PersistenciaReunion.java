@@ -26,7 +26,7 @@ class PersistenciaReunion implements IPersistenciaReunion{
         return instancia;
     }
 //COMENTARIO NEW MODIFY
-    //NEW ******************
+
     private Context contexto;
 
     private PersistenciaReunion(Context contexto){
